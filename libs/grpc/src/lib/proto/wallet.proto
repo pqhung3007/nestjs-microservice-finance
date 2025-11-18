@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package wallet;
+
+service WalletService {
+  rpc BuyForex(BuyForexRequest) returns (BuyForexResponse);
+  rpc CreateWallet(CreateWalletRequest) returns (CreateWalletResponse);
+  rpc GetWalletBalance(GetWalletBalanceRequest) returns (GetWalletBalanceResponse);
+  rpc GetAllUserWallets(GetAllUserWalletsRequest) returns (GetAllUserWalletsResponse);
+  rpc FundWallet(FundWalletRequest) returns (FundWalletResponse);
+  rpc WithdrawWallet(WithdrawWalletRequest) returns (WithdrawWalletResponse);
+}
+
+message BuyForexRequest {
+  string user_id = 1;
+  string base_currency = 2;
+  string amount = 3;
+  string target_currency = 4;
+}
+
+message BuyForexResponse {
+  bool success = 1;
+  string message = 2;
+  string exchange_rate = 3;
+  string target_amount = 4;
+}
+
+message CreateWalletRequest {
+  string user_id = 1;
+  string currency = 2;
+}
+
+message CreateWalletResponse {
+  string user_id = 1;
+  string wallet_id = 2;
+  string currency = 3;
+  string balance = 4;
+}
+
+
+message GetWalletBalanceRequest {
+  string user_id = 1;
+  string wallet_currency = 2;
+}
+
+message GetWalletBalanceResponse {
+  string user_id = 1;
+  string wallet_id = 2;
+  string currency = 3;
+  string balance = 4;
+}
+
+message GetAllUserWalletsRequest {
+  string user_id = 1;
+}
+
+message GetAllUserWalletsResponse {
+  repeated GetWalletBalanceResponse wallets = 1;
+}
+
+message FundWalletRequest {
+  string user_id = 1;
+  string wallet_id = 2;
+  string amount = 3;
+}
+
+message FundWalletResponse {
+  string user_id = 1;
+  string wallet_id = 2;
+  string currency = 3;
+  string balance = 4;
+}
+
+
+message WithdrawWalletRequest {
+  string user_id = 1;
+  string wallet_id = 2;
+  string amount = 3;
+}
+
+message WithdrawWalletResponse {
+  string user_id = 1;
+  string wallet_id = 2;
+  string currency = 3;
+  string balance = 4;
+}
